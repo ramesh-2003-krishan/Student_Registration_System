@@ -40,13 +40,3 @@ A simple, beginner-friendly web application for university clerical staff to man
 
 ---
 
-## 💡 Viva Explanation Guide
-
-### 1. How Database Connection Works (`config/database.php`)
-The file creates a PDO (PHP Data Objects) connection instance connected to MySQL on `localhost`. PDO is used because it provides prepared statements which prevent SQL injection.
-
-### 2. How Login Works (`login.php` & `includes/auth.php`)
-When the admin submits the login form, PHP selects the admin row from the `admins` table by username. `password_verify()` compares the entered password with the hashed password stored in the database. If correct, `$_SESSION['admin_id']` is saved. Protected pages check `if (!isset($_SESSION['admin_id']))` at the top and redirect to `login.php` if unauthorized.
-
-### 3. How Adding a Student Works (`students/add.php`)
-When the form is submitted, PHP checks that required fields are not empty, validates email and phone number, and checks database uniqueness for index number and email using prepared statements. It inserts the student into `students` table, grabs the generated ID with `$pdo->lastInsertId()`, and inserts a record into `enrollments` connecting the student to the selected course.
